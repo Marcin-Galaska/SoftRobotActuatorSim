@@ -1,0 +1,30 @@
+from os.path import join
+import FreeCAD as App
+import Mesh
+from femmesh import femmesh2mesh
+from femtools import ccxtools
+
+pressure = 0
+scale = 1
+fea = ccxtools.FemToolsCcx()
+path = join(App.getResourceDir(), "examples", "Actuator.FCStd")
+
+for i in range(10)
+	fea.purge_results()
+	fea.run()
+
+	doc = App.openDocument(path)
+	fem_mesh = doc.FEMMeshGmsh.FemMesh
+	result = doc.CCX_Results
+	doc.ConstraintPressure.Pressure = pressure / 1000000
+	out_mesh = femmesh2mesh.femmesh_2_mesh(fem_mesh, result, scale)
+	Mesh.show(Mesh.Mesh(out_mesh))
+	Mesh.export(out_mesh, f'C:/Users/Marci/Desktop/Dokumentacja wszelaka/Studia/ROK III/SEM VI/PP/Meshes/{pressure}.obj')
+
+	pressure = pressure + 100
+
+
+
+
+
+
